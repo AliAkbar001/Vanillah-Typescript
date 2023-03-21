@@ -67,25 +67,29 @@ add_btn.addEventListener('click', ()=>{
     delete_btn.style.display = 'none'
     title.innerHTML = 'Add Member'
     submit_btn.innerText = "New Member"
+    const memberID:any = document.getElementById("member_id")
+    memberID.disabled = false;
     $("#exampleModal").modal('show')
 })
 
 table.addEventListener('click', function(event:any) {
     let rowId = event.target.parentNode.id;
-    rowId = parseInt(rowId)
-    const member:any = members[rowId]
-    for (const property in member) {
-        const element:any = document.getElementById(property) as HTMLElement | null
-        element.value = member[property];
+    if(rowId !== ''){
+        rowId = parseInt(rowId)
+        const member:any = members[rowId]
+        for (const property in member) {
+            const element:any = document.getElementById(property) as HTMLElement | null
+            element.value = member[property];
+        }
+        member_id_validation.style.color = 'gray'
+        const memberID:any = document.getElementById("member_id")
+        memberID.disabled = true;
+        selectedMember = members[rowId].member_id
+        delete_btn.style.display = ''
+        title.innerHTML = 'Edit ' + members[rowId].full_name
+        submit_btn.innerText = "Edit Member"
+        $("#exampleModal").modal('show')
     }
-    member_id_validation.style.color = 'gray'
-    const memberID:any = document.getElementById("member_id")
-    memberID.disabled = true;
-    selectedMember = members[rowId].member_id
-    delete_btn.style.display = ''
-    title.innerHTML = 'Edit ' + members[rowId].full_name
-    submit_btn.innerText = "Edit Member"
-    $("#exampleModal").modal('show')
 });
 
 const showMembers = () =>{
